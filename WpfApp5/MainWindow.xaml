@@ -5,11 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp5"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" PreviewKeyDown="Window_PreviewKeyDown">
+        Title="MainWindow" Height="450" Width="800" PreviewKeyDown="Window_PreviewKeyDown" AllowsTransparency="True" WindowStyle="None" Background="#CC6477F0" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Viewbox>
         <Grid x:Name="mainGrid" PreviewKeyDown="mainGrid_PreviewKeyDown">
-            <Image Name="hero" HorizontalAlignment="Left" Height="30" Margin="339,219,0,0" VerticalAlignment="Top" Width="30" Source="hero.png"/>
-            <Image Name="chest" HorizontalAlignment="Left" Height="30" Margin="339,219,0,0" VerticalAlignment="Top" Width="30" Source="chest.png"/>
+            <Image Name="hero" HorizontalAlignment="Left" Height="30" Margin="339,219,0,0" VerticalAlignment="Top" Width="30" Source="Resources/hero.png"/>
         </Grid>
     </Viewbox>
 </Window>
