@@ -1,0 +1,15 @@
+﻿<Window x:Class="WpfApp5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp5"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" PreviewKeyDown="Window_PreviewKeyDown">
+    <Viewbox>
+        <Grid x:Name="mainGrid" PreviewKeyDown="mainGrid_PreviewKeyDown">
+            <Image Name="hero" HorizontalAlignment="Left" Height="30" Margin="339,219,0,0" VerticalAlignment="Top" Width="30" Source="hero.png"/>
+            <Image Name="chest" HorizontalAlignment="Left" Height="30" Margin="339,219,0,0" VerticalAlignment="Top" Width="30" Source="chest.png"/>
+        </Grid>
+    </Viewbox>
+</Window>
