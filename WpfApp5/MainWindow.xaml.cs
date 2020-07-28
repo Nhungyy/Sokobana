@@ -100,8 +100,6 @@ namespace WpfApp5
                     }
                 }
             }
-
-
         }
         private void mainGrid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
