@@ -95,7 +95,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\wall1.png" />
     <None Include="Resources\wall.png" />
     <None Include="Resources\box.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
