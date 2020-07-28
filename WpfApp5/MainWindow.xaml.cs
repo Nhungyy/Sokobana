@@ -20,6 +20,7 @@ namespace WpfApp5
     /// </summary>
     public partial class MainWindow : Window
     {
+        /*
         int[,] map = { { 1, 0, 1, 1, 1, 0, 0, 1 },
                        { 1, 2, 1, 1, 1, 0, 0, 1 },
                        { 1, 0, 0, 1, 0, 0, 0, 1 },
@@ -49,18 +50,30 @@ namespace WpfApp5
                        { 1, 0, 0, 0, 0, 0, 0, 1 },
                        { 1, 0, 0, 0, 0, 0, 1, 1 },
                        { 1, 1, 1, 1, 1, 1, 1, 1} };
+*/
+        int[,] map = { { 1, 1, 1, 1, },
+            { 0, 0, 0, 0, },
+            { 1, 0, 0, 1, },
+            { 1, 1, 1, 1, } };
 
         private int heroX = 0;
         private int heroY = 0;
         private int step = 15;
+        private Image hero;
+
+        private float correctionX = 5.2f;
+        private float correctionY = 3.2f;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            for (int x = 0; x < 29; x++)
+            float moveX = 0;// correctionY * 4;
+            float moveY = 0;
+
+            for (int x = 0; x < 4; x++) //29
             {
-                for (int y = 0; y < 8; y++)
+                for (int y = 0; y < 4; y++) //8
                 {
                     if (map[x, y] == 3)
                     {
@@ -75,7 +88,7 @@ namespace WpfApp5
                     }
                     if (map[x, y] == 2)
                     {
-                        Image hero = new Image();
+                        hero = new Image();
                         hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\hero.png", UriKind.Absolute));
                         heroX = x;
                         heroY = y;
@@ -95,10 +108,26 @@ namespace WpfApp5
                         wall.Height = step;                        
                         wall.HorizontalAlignment = HorizontalAlignment.Left;
                         wall.VerticalAlignment = VerticalAlignment.Top;
-                        wall.Margin = new Thickness(x * step, y * step, 0, 0);
+                        wall.Margin = new Thickness(x * step + moveX, y * step + moveY, 0, 0);
                         this.mainGrid.Children.Add(wall);
                     }
+
+                    if (map[x, y] == 0)
+                    {
+                        Image ground = new Image();
+                        ground.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\ground.png", UriKind.Absolute));
+                        ground.Width = step;
+                        ground.Height = step;
+                        ground.HorizontalAlignment = HorizontalAlignment.Left;
+                        ground.VerticalAlignment = VerticalAlignment.Top;
+                        ground.Margin = new Thickness(x * step - step / 2, y * step + step * 2, 0, 0);
+                        this.mainGrid.Children.Add(ground);
+                    }
+
+                   // moveX += correctionX;
                 }
+                moveX = 0;
+              //  moveY -= correctionY;
             }
         }
         private void mainGrid_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -151,7 +180,9 @@ namespace WpfApp5
             if (e.Key == Key.Escape)
             {
                 Close();
-            }                   
+            }
+
+          //  hero.Margin = new Thickness(heroX * step, heroY * step, 0, 0);
         }
     }
 }
