@@ -29,9 +29,9 @@ namespace WpfApp5
                        { 1, 0, 0, 0, 0, 0, 0, 1 },
                        { 1, 0, 0, 0, 0, 3, 0, 1 },
                        { 1, 0, 0, 1, 0, 0, 0, 1 },
-                       { 1, 0, 3, 1, 0, 0, 0, 1 },
+                       { 1, 3, 0, 1, 0, 0, 0, 1 },
                        { 1, 0, 0, 1, 1, 0, 0, 1 },
-                       { 1, 0, 0, 1, 1, 0, 0, 1 },
+                       { 1, 0, 3, 1, 1, 0, 0, 1 },
                        { 1, 0, 0, 0, 1, 0, 0, 1 },
                        { 1, 0, 0, 0, 1, 0, 0, 1 },
                        { 1, 0, 1, 1, 1, 0, 0, 1 },
@@ -66,46 +66,45 @@ namespace WpfApp5
                 {
                     if (map[x, y] == 3)
                     {
-
-
-
-                        Image chest = new Image();
-                        chest.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\chest.png", UriKind.Absolute));
-                        chest.Width = step;
-                        chest.Height = step;
+                        Image box = new Image();
+                        box.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\box.png", UriKind.Absolute));
+                        box.Width = step;
+                        box.Height = step;
                         //d.Content = " ";
-                        chest.HorizontalAlignment = HorizontalAlignment.Left;
-                        chest.VerticalAlignment = VerticalAlignment.Top;
-                        chest.Margin = new Thickness(x * step, y * step, 0, 0);
-                        this.mainGrid.Children.Add(chest);
+                        box.HorizontalAlignment = HorizontalAlignment.Left;
+                        box.VerticalAlignment = VerticalAlignment.Top;
+                        box.Margin = new Thickness(x * step, y * step, 0, 0);
+                        this.mainGrid.Children.Add(box);
                     }
                     if (map[x, y] == 2)
                     {
+                        Image hero = new Image();
+                        hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\hero.png", UriKind.Absolute));
                         heroX = x;
                         heroY = y;
-                        //hero = new Button();
+                        //Button hero = new Button();
                         hero.Width = step;
                         hero.Height = step;
                         //hero.Content = "x";
                         hero.HorizontalAlignment = HorizontalAlignment.Left;
                         hero.VerticalAlignment = VerticalAlignment.Top;
                         hero.Margin = new Thickness(heroX * step, heroY * step, 0, 0);
-                        //this.mainGrid.Children.Add(hero);
+                        this.mainGrid.Children.Add(hero);
 
                     }
 
                     if (map[x, y] == 1)
                     {
-
-                        Button w = new Button();
-                        w.Width = step;
-                        w.Height = step;
-                        w.Content = " ";
-                        w.HorizontalAlignment = HorizontalAlignment.Left;
-                        w.VerticalAlignment = VerticalAlignment.Top;
-                        w.Margin = new Thickness(x * step, y * step, 0, 0);
-
-                        this.mainGrid.Children.Add(w);
+                        //Button w = new Button();
+                        Image wall = new Image();
+                        wall.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\wall.png", UriKind.Absolute));
+                        wall.Width = step;
+                        wall.Height = step;
+                        //w.Content = " ";
+                        wall.HorizontalAlignment = HorizontalAlignment.Left;
+                        wall.VerticalAlignment = VerticalAlignment.Top;
+                        wall.Margin = new Thickness(x * step, y * step, 0, 0);
+                        this.mainGrid.Children.Add(wall);
                     }
                 }
             }
@@ -120,6 +119,7 @@ namespace WpfApp5
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            
             if (e.Key == Key.Right)
             {
                 if (map[heroX + 1, heroY] != 1)
@@ -163,12 +163,10 @@ namespace WpfApp5
                     }
                 }
             }
-            if(e.Key == Key.Escape)
+            if (e.Key == Key.Escape)
             {
                 Close();
             }
-
-            hero.Margin = new Thickness(heroX * step, heroY * step, 0, 0);
         }
     }
 }

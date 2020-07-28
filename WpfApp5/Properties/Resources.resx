@@ -118,10 +118,48 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="chest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="box" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\box.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="hero" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hero.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="hero" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
+  </data>
+  <data name="wall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
