@@ -99,7 +99,7 @@ namespace WpfApp5
                         this.mainGrid.Children.Add(wall);
                     }
                 }
-            }
+            }    
         }
         private void mainGrid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
