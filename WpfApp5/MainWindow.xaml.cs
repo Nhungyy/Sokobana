@@ -58,6 +58,8 @@ namespace WpfApp5
         {
             InitializeComponent();
 
+
+
             for (int x = 0; x < 29; x++)
             {
                 for (int y = 0; y < 8; y++)
@@ -65,14 +67,17 @@ namespace WpfApp5
                     if (map[x, y] == 3)
                     {
 
-                        //Button d = new Button();
+
+
+                        Image chest = new Image();
+                        chest.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\chest.png", UriKind.Absolute));
                         chest.Width = step;
                         chest.Height = step;
                         //d.Content = " ";
                         chest.HorizontalAlignment = HorizontalAlignment.Left;
                         chest.VerticalAlignment = VerticalAlignment.Top;
                         chest.Margin = new Thickness(x * step, y * step, 0, 0);
-                        //this.mainGrid.Children.Add(d);
+                        this.mainGrid.Children.Add(chest);
                     }
                     if (map[x, y] == 2)
                     {
