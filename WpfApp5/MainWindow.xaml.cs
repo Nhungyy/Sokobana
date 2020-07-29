@@ -20,7 +20,7 @@ namespace WpfApp5
     /// </summary>
     public partial class MainWindow : Window
     {
-        /*
+        
         int[,] map = { { 1, 0, 1, 1, 1, 0, 0, 1 },
                        { 1, 2, 1, 1, 1, 0, 0, 1 },
                        { 1, 0, 0, 1, 0, 0, 0, 1 },
@@ -50,12 +50,13 @@ namespace WpfApp5
                        { 1, 0, 0, 0, 0, 0, 0, 1 },
                        { 1, 0, 0, 0, 0, 0, 1, 1 },
                        { 1, 1, 1, 1, 1, 1, 1, 1} };
-*/
+
+/*
         int[,] map = { { 1, 1, 1, 1, },
             { 0, 0, 0, 0, },
             { 1, 0, 0, 1, },
             { 1, 1, 1, 1, } };
-
+            */
         private int heroX = 0;
         private int heroY = 0;
         private int step = 15;
@@ -71,9 +72,9 @@ namespace WpfApp5
             float moveX = 0;// correctionY * 4;
             float moveY = 0;
 
-            for (int x = 0; x < 4; x++) //29
+            for (int x = 0; x < 29; x++) //29
             {
-                for (int y = 0; y < 4; y++) //8
+                for (int y = 0; y < 8; y++) //8
                 {
                     if (map[x, y] == 3)
                     {
