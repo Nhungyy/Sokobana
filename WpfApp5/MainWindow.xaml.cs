@@ -20,7 +20,7 @@ namespace WpfApp5
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
         int[,] map = { { 1, 0, 1, 1, 1, 0, 0, 1 },
                        { 1, 2, 1, 1, 1, 0, 0, 1 },
                        { 1, 0, 0, 1, 0, 0, 0, 1 },
@@ -51,31 +51,56 @@ namespace WpfApp5
                        { 1, 0, 0, 0, 0, 0, 1, 1 },
                        { 1, 1, 1, 1, 1, 1, 1, 1} };
 
-/*
-        int[,] map = { { 1, 1, 1, 1, },
-            { 0, 0, 0, 0, },
-            { 1, 0, 0, 1, },
-            { 1, 1, 1, 1, } };
-            */
+        /*
+                int[,] map = { { 1, 1, 1, 1, },
+                    { 0, 0, 0, 0, },
+                    { 1, 0, 0, 1, },
+                    { 1, 1, 1, 1, } };
+                    */
         private int heroX = 0;
         private int heroY = 0;
-        private int step = 15;
+        private const int step = 10;
         private Image hero;
 
         private float correctionX = 5.2f;
         private float correctionY = 3.2f;
+        private float divX = 2.4f;
+        private float divXG = 1.0f;
+        private float divY = 3.1f;
+        private float groundCorrectionX = step / 8.5f;
+        private float groundCorrectionY = step / 2.9f;
+
+        private float getX(int x, int y)
+        {
+            float globalX = -(y * step / 1.8f);
+            float moveX = (step / divXG) * y;
+            return x * step / divX + moveX + globalX;
+        }
+
+        private float getY(int x, int y)
+        {
+            float globalY = (y + 1) * step / 1.5f;
+            float moveY = (step / divY) * x;
+            return y * step - moveY - globalY;
+        }
 
         public MainWindow()
         {
             InitializeComponent();
 
+            float globalY = step;
+            float globalX = 0;
+
             float moveX = 0;// correctionY * 4;
             float moveY = 0;
 
-            for (int x = 0; x < 29; x++) //29
+            for (int y = 0; y < 8; y++) //8
             {
-                for (int y = 0; y < 8; y++) //8
+                for (int x = 0; x < 29; x++) //29
                 {
+                    float Ox = getX(x, y); // x * step / divX + moveX + globalX;
+                    float Oy = getY(x, y); //  y * step - moveY - globalY;
+
                     if (map[x, y] == 3)
                     {
                         Image box = new Image();
@@ -84,7 +109,7 @@ namespace WpfApp5
                         box.Height = step;
                         box.HorizontalAlignment = HorizontalAlignment.Left;
                         box.VerticalAlignment = VerticalAlignment.Top;
-                        box.Margin = new Thickness(x * step, y * step, 0, 0);
+                        box.Margin = new Thickness(Ox, Oy, 0, 0);
                         this.mainGrid.Children.Add(box);
                     }
                     if (map[x, y] == 2)
@@ -94,10 +119,10 @@ namespace WpfApp5
                         heroX = x;
                         heroY = y;
                         hero.Width = step;
-                        hero.Height = step;                     
+                        hero.Height = step;
                         hero.HorizontalAlignment = HorizontalAlignment.Left;
                         hero.VerticalAlignment = VerticalAlignment.Top;
-                        hero.Margin = new Thickness(heroX * step, heroY * step, 0, 0);
+                        hero.Margin = new Thickness(Ox, Oy, 0, 0);
                         this.mainGrid.Children.Add(hero);
 
                     }
@@ -106,14 +131,14 @@ namespace WpfApp5
                         Image wall = new Image();
                         wall.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\wall.png", UriKind.Absolute));
                         wall.Width = step;
-                        wall.Height = step;                        
+                        wall.Height = step;
                         wall.HorizontalAlignment = HorizontalAlignment.Left;
                         wall.VerticalAlignment = VerticalAlignment.Top;
-                        wall.Margin = new Thickness(x * step + moveX, y * step + moveY, 0, 0);
-                        this.mainGrid.Children.Add(wall);
+                        wall.Margin = new Thickness(Ox, Oy, 0, 0);
+                        this.mainGrid.Children.Insert(y * 29, wall);
                     }
 
-                    if (map[x, y] == 0)
+                    if (map[x, y] != 1)
                     {
                         Image ground = new Image();
                         ground.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\ground.png", UriKind.Absolute));
@@ -121,14 +146,18 @@ namespace WpfApp5
                         ground.Height = step;
                         ground.HorizontalAlignment = HorizontalAlignment.Left;
                         ground.VerticalAlignment = VerticalAlignment.Top;
-                        ground.Margin = new Thickness(x * step - step / 2, y * step + step * 2, 0, 0);
-                        this.mainGrid.Children.Add(ground);
+                        ground.Margin = new Thickness(Ox - groundCorrectionX, Oy + groundCorrectionY, 0, 0);
+                        this.mainGrid.Children.Insert(y * 29, ground);
                     }
-
-                   // moveX += correctionX;
+                    moveY += step / divY;
+                    // moveX += correctionX;
                 }
-                moveX = 0;
-              //  moveY -= correctionY;
+                globalY += step / 1.5f;
+                globalX -= step / 1.8f;
+                moveY = 0;
+                moveX += step / divXG;
+                //moveX = 0;
+                //  moveY -= correctionY;
             }
         }
         private void mainGrid_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -136,7 +165,7 @@ namespace WpfApp5
 
         }
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
-        {           
+        {
             if (e.Key == Key.Right)
             {
                 if (map[heroX + 1, heroY] != 1)
@@ -183,7 +212,7 @@ namespace WpfApp5
                 Close();
             }
 
-          //  hero.Margin = new Thickness(heroX * step, heroY * step, 0, 0);
+            hero.Margin = new Thickness(getX(heroX, heroY), getY(heroX, heroY), 0, 0);
         }
     }
 }
