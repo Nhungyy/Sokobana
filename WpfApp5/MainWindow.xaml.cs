@@ -21,7 +21,8 @@ namespace WpfApp5
     public partial class MainWindow : Window
     {
 
-        int[,] map = { { 1, 0, 1, 1, 1, 0, 0, 1 },
+        int[,] map = { { 1, 1, 1, 1, 1, 1, 1, 1 },
+                       { 1, 0, 1, 1, 1, 0, 0, 1 },
                        { 1, 2, 1, 1, 1, 0, 0, 1 },
                        { 1, 0, 0, 1, 0, 0, 0, 1 },
                        { 1, 0, 0, 0, 0, 0, 0, 1 },
@@ -32,23 +33,14 @@ namespace WpfApp5
                        { 1, 0, 0, 1, 0, 0, 0, 1 },
                        { 1, 3, 0, 1, 0, 0, 0, 1 },
                        { 1, 0, 0, 1, 1, 0, 0, 1 },
-                       { 1, 0, 3, 1, 1, 0, 0, 1 },
+                       { 1, 0, 0, 1, 1, 0, 0, 1 },
                        { 1, 0, 0, 0, 1, 0, 0, 1 },
                        { 1, 0, 0, 0, 1, 0, 0, 1 },
-                       { 1, 0, 1, 1, 1, 0, 0, 1 },
-                       { 1, 0, 0, 0, 0, 0, 0, 1 },
-                       { 1, 0, 0, 0, 0, 0, 0, 1 },
-                       { 1, 0, 0, 0, 0, 0, 0, 1 },
-                       { 1, 0, 0, 0, 0, 0, 0, 1 },
-                       { 1, 0, 0, 0, 0, 0, 0, 1 },
-                       { 1, 1, 0, 1, 0, 0, 1, 1 },
-                       { 1, 0, 0, 1, 0, 0, 1, 1 },
-                       { 1, 0, 0, 1, 0, 0, 1, 1 },
-                       { 1, 0, 0, 1, 0, 0, 1, 1 },
-                       { 1, 0, 0, 1, 0, 0, 0, 1 },
-                       { 1, 1, 1, 1, 0, 0, 0, 1 },
-                       { 1, 0, 0, 0, 0, 0, 0, 1 },
-                       { 1, 0, 0, 0, 0, 0, 1, 1 },
+                       { 1, 0, 0, 1, 1, 0, 0, 1 },
+                       { 1, 0, 3, 1, 0, 0, 0, 1 },
+                       { 1, 0, 3, 1, 0, 0, 0, 1 },
+                       { 1, 0, 3, 1, 0, 0, 1, 1 },
+                       { 1, 0, 0, 1, 0, 0, 1, 1 },                       
                        { 1, 1, 1, 1, 1, 1, 1, 1} };
 
         /*
@@ -56,7 +48,7 @@ namespace WpfApp5
                     { 0, 0, 0, 0, },
                     { 1, 0, 0, 1, },
                     { 1, 1, 1, 1, } };
-                    */
+        */
         private int heroX = 0;
         private int heroY = 0;
         private const int step = 10;
@@ -64,9 +56,9 @@ namespace WpfApp5
 
         private float correctionX = 5.2f;
         private float correctionY = 3.2f;
-        private float divX = 2.4f;
+        private float divX = 2.27f;
         private float divXG = 1.0f;
-        private float divY = 3.1f;
+        private float divY = 3.3f;
         private float groundCorrectionX = step / 8.5f;
         private float groundCorrectionY = step / 2.9f;
 
@@ -89,14 +81,14 @@ namespace WpfApp5
             InitializeComponent();
 
             float globalY = step;
-            float globalX = 0;
+            float globalX = step;
 
-            float moveX = 0;// correctionY * 4;
+            float moveX = 0; //correctionY * 4;
             float moveY = 0;
 
             for (int y = 0; y < 8; y++) //8
             {
-                for (int x = 0; x < 29; x++) //29
+                for (int x = 0; x < 21; x++) //21
                 {
                     float Ox = getX(x, y); // x * step / divX + moveX + globalX;
                     float Oy = getY(x, y); //  y * step - moveY - globalY;
@@ -135,7 +127,7 @@ namespace WpfApp5
                         wall.HorizontalAlignment = HorizontalAlignment.Left;
                         wall.VerticalAlignment = VerticalAlignment.Top;
                         wall.Margin = new Thickness(Ox, Oy, 0, 0);
-                        this.mainGrid.Children.Insert(y * 29, wall);
+                        this.mainGrid.Children.Insert(y * 21, wall);
                     }
 
                     if (map[x, y] != 1)
@@ -147,7 +139,7 @@ namespace WpfApp5
                         ground.HorizontalAlignment = HorizontalAlignment.Left;
                         ground.VerticalAlignment = VerticalAlignment.Top;
                         ground.Margin = new Thickness(Ox - groundCorrectionX, Oy + groundCorrectionY, 0, 0);
-                        this.mainGrid.Children.Insert(y * 29, ground);
+                        this.mainGrid.Children.Insert(y * 21, ground);
                     }
                     moveY += step / divY;
                     // moveX += correctionX;
@@ -168,6 +160,7 @@ namespace WpfApp5
         {
             if (e.Key == Key.Right)
             {
+                hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\hero.png", UriKind.Absolute));
                 if (map[heroX + 1, heroY] != 1)
                 {
                     if (map[heroX + 1, heroY] != 3)
@@ -179,6 +172,7 @@ namespace WpfApp5
             }
             if (e.Key == Key.Left)
             {
+                hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroback.png", UriKind.Absolute));
                 if (map[heroX - 1, heroY] != 1)
                 {
                     if (map[heroX - 1, heroY] != 3)
@@ -189,6 +183,7 @@ namespace WpfApp5
             }
             if (e.Key == Key.Down)
             {
+                hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroright.png", UriKind.Absolute));
                 if (map[heroX, heroY + 1] != 1)
                 {
                     if (map[heroX, heroY + 1] != 3)
@@ -199,6 +194,7 @@ namespace WpfApp5
             }
             if (e.Key == Key.Up)
             {
+                hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroleft.png", UriKind.Absolute));
                 if (map[heroX, heroY - 1] != 1)
                 {
                     if (map[heroX, heroY - 1] != 3)
