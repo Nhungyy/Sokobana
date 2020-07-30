@@ -6,8 +6,13 @@
         xmlns:local="clr-namespace:WpfApp5"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" PreviewKeyDown="Window_PreviewKeyDown" Background="#CC8BC5FF" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+
     <Viewbox>
+
         <Grid x:Name="mainGrid" PreviewKeyDown="mainGrid_PreviewKeyDown">
+            <Button Content="Load" HorizontalAlignment="Left" Margin="-23,8,-23,0" VerticalAlignment="Top" Width="47" Click="Button_Click"/>
         </Grid>
+
     </Viewbox>
+
 </Window>
