@@ -37,7 +37,7 @@ namespace WpfApp5
 
         private float correctionX = 5.2f;
         private float correctionY = 3.2f;
-        private float divX = 2.27f;
+        private float divX = 2.2f;
         private float divXG = 1.0f;
         private float divY = 3.3f;
         private float groundCorrectionX = step / 8.5f;
@@ -60,7 +60,7 @@ namespace WpfApp5
         public MainWindow()
         {
             InitializeComponent();
-            loadMap(@"D:\map1.txt");
+            loadMap(@"E:\LearningC#\map1.txt");
         }
 
         public void loadMap(string fileName)
@@ -105,9 +105,9 @@ namespace WpfApp5
 
                 
 
-                for (int y = 0; y < map.Length; y++) //8
+                for (int y = 0; y < map.Length; y++)
                 {
-                    for (int x = 0; x < map[0].Length; x++) //21
+                    for (int x = 0; x < map[0].Length; x++)
                     {
                         float Ox = getX(x, y); // x * step / divX + moveX + globalX;
                         float Oy = getY(x, y); //  y * step - moveY - globalY;
@@ -238,7 +238,7 @@ namespace WpfApp5
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.mainGrid.Children.Clear();
-            loadMap(@"D:\map2.txt");
+            loadMap(@"E:\LearningC#\map2.txt");
         }
     }
 }

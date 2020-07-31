@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" PreviewKeyDown="Window_PreviewKeyDown" Background="#CC8BC5FF" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
-    <Viewbox>
+  <Viewbox>
 
-        <Grid x:Name="mainGrid" PreviewKeyDown="mainGrid_PreviewKeyDown">
-            <Button Content="Load" HorizontalAlignment="Left" Margin="-23,8,-23,0" VerticalAlignment="Top" Width="47" Click="Button_Click"/>
-        </Grid>
+    <Grid x:Name="mainGrid" PreviewKeyDown="mainGrid_PreviewKeyDown">
+      <Button Content="map2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="5" Click="Button_Click" Height="5" Margin="0,0,0,0"/>
+    </Grid>
 
-    </Viewbox>
+  </Viewbox>
 
 </Window>
