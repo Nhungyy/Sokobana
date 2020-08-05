@@ -24,24 +24,18 @@ namespace WpfApp5
 
         string[] map = { "11111111", "10020011", "10300111", "11000011" };
 
-        /*
-                int[,] map = { { 1, 1, 1, 1, },
-                    { 0, 0, 0, 0, },
-                    { 1, 0, 0, 1, },
-                    { 1, 1, 1, 1, } };
-        */
         private int heroX = 0;
-        private int heroY = 0;
+        private int heroY = -5;
         private const int step = 10;
         private Image hero;
 
         private float correctionX = 5.2f;
-        private float correctionY = 3.2f;
-        private float divX = 2.2f;
-        private float divXG = 1.0f;
-        private float divY = 3.3f;
-        private float groundCorrectionX = step / 8.5f;
-        private float groundCorrectionY = step / 2.9f;
+        private float correctionY = 2.5f;
+        private float divX = 2.25f;
+        private float divXG = 0.99f;
+        private float divY = 3.2f;
+        private float groundCorrectionX = step / 25.0f;
+        private float groundCorrectionY = step / 3.0f;
 
         private float getX(int x, int y)
         {
@@ -80,11 +74,11 @@ namespace WpfApp5
                 {
                     float Ox = getX(x, y); // x * step / divX + moveX + globalX;
                     float Oy = getY(x, y); //  y * step - moveY - globalY;
-
+           
                     if (map[y][x] == '3')
                     {
                         Image box = new Image();
-                        box.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\box.png", UriKind.Absolute));
+                        box.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\box1.png", UriKind.Absolute));
                         box.Width = step;
                         box.Height = step;
                         box.HorizontalAlignment = HorizontalAlignment.Left;
@@ -93,10 +87,11 @@ namespace WpfApp5
                         this.mainGrid.Children.Insert(y * map[0].Length, box);
                         //this.mainGrid.Children.Add(box);
                     }
+                    
                     if (map[y][x] == '2')
                     {
                         hero = new Image();
-                        hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\hero.png", UriKind.Absolute));
+                        hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroright.png", UriKind.Absolute));
                         heroX = x;
                         heroY = y;
                         hero.Width = step;
@@ -106,12 +101,11 @@ namespace WpfApp5
                         hero.Margin = new Thickness(Ox, Oy, 0, 0);
                         this.mainGrid.Children.Insert(y * map[0].Length, hero);
                         //this.mainGrid.Children.Add(hero);
-
                     }
                     if (map[y][x] == '1')
                     {
                         Image wall = new Image();
-                        wall.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\wall.png", UriKind.Absolute));
+                        wall.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\wall1.png", UriKind.Absolute));
                         wall.Width = step;
                         wall.Height = step;
                         wall.HorizontalAlignment = HorizontalAlignment.Left;
@@ -123,7 +117,7 @@ namespace WpfApp5
                     if (map[y][x] == '0')
                     {
                         Image ground = new Image();
-                        ground.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\ground.png", UriKind.Absolute));
+                        ground.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\ground1.png", UriKind.Absolute));
                         ground.Width = step;
                         ground.Height = step;
                         ground.HorizontalAlignment = HorizontalAlignment.Left;
@@ -132,7 +126,7 @@ namespace WpfApp5
                         this.mainGrid.Children.Insert(y * map[0].Length, ground);
                     }
                     moveY += step / divY;
-                    // moveX += correctionX;
+                    moveX += correctionX;
                 }
                 globalY += step / 1.5f;
                 globalX -= step / 1.8f;
@@ -218,12 +212,12 @@ namespace WpfApp5
             {
                 if (move != 3)
                 {
-                    heroX+= vectorX;
+                    heroX += vectorX;
                     heroY += vectorY;
                 }
                 else
                 {
-                    int moveBox = canMove(x + vectorX*2, y+vectorY*2);
+                    int moveBox = canMove(x + vectorX * 2, y + vectorY * 2);
                     if (moveBox == 0)
                     {
                         moveObject(x + vectorX, y + vectorY, '0');
@@ -242,37 +236,37 @@ namespace WpfApp5
 
             if (e.Key == Key.Right)
             {
-                hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\hero.png", UriKind.Absolute));
                 moveHero(heroX, heroY, 1, 0);
+                hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroright.png", UriKind.Absolute));
             }
             if (e.Key == Key.Left)
             {
-                hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroback.png", UriKind.Absolute));
                 moveHero(heroX, heroY, -1, 0);
+                hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroup.png", UriKind.Absolute));
             }
             if (e.Key == Key.Down)
             {
-                hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroright.png", UriKind.Absolute));
                 moveHero(heroX, heroY, 0, 1);
+                hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroback.png", UriKind.Absolute));
             }
             if (e.Key == Key.Up)
             {
-                hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroleft.png", UriKind.Absolute));
                 moveHero(heroX, heroY, 0, -1);
+                hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroleft.png", UriKind.Absolute));
             }
             if (e.Key == Key.Escape)
             {
                 Close();
             }
 
-            
+
             moveObject(heroX, heroY, '2');
             drawMap();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+
             loadMap(@"E:\LearningC#\map2.txt");
         }
     }

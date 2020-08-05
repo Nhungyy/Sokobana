@@ -95,8 +95,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="MV5BYjE1ZWY4YTAtYjY0Zi00ZTA0LWIxOWMtZWM5MWE2MzVmMzZjXkEyXkFqcGdeQXVyNjA2NTk5NDQ%40._V1_SX1777_CR0,0,1777,999_AL_.jpg" />
-    <Content Include="Resources\hero.png">
+    <Content Include="Resources\box.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\box1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ground.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ground1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\heroright.png">
@@ -111,10 +119,12 @@
     <Content Include="Resources\wall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\box.png">
+    <Content Include="Resources\wall1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\ground.png">
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\heroup.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
