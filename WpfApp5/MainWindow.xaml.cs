@@ -16,11 +16,18 @@ using System.Windows.Shapes;
 
 namespace WpfApp5
 {
+
+    public class Coord
+    {
+        public int x = -1;
+        public int y = -1;
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Coord> cell = new List<Coord>();
 
         string[] map = { "11111111", "10020011", "10300111", "11000011" };
 
@@ -90,8 +97,8 @@ namespace WpfApp5
                     
                     if (map[y][x] == '2')
                     {
-                        hero = new Image();
-                        hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroright.png", UriKind.Absolute));
+                        if (hero == null) hero = new Image();
+                        //hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroright.png", UriKind.Absolute));
                         heroX = x;
                         heroY = y;
                         hero.Width = step;
@@ -125,6 +132,24 @@ namespace WpfApp5
                         ground.Margin = new Thickness(Ox - groundCorrectionX, Oy + groundCorrectionY, 0, 0);
                         this.mainGrid.Children.Insert(y * map[0].Length, ground);
                     }
+
+                    if (map[y][x] == '4')
+                    {
+                        Coord coord = new Coord();
+                        coord.x = x;
+                        coord.y = y;
+                        cell.Add(coord);
+
+                        Image ground = new Image();
+                        //ground.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\ground1.png", UriKind.Absolute));
+                        ground.Width = step;
+                        ground.Height = step;
+                        ground.HorizontalAlignment = HorizontalAlignment.Left;
+                        ground.VerticalAlignment = VerticalAlignment.Top;
+                        ground.Margin = new Thickness(Ox - groundCorrectionX, Oy + groundCorrectionY, 0, 0);
+                        this.mainGrid.Children.Insert(y * map[0].Length, ground);
+                    }
+
                     moveY += step / divY;
                     moveX += correctionX;
                 }
@@ -181,6 +206,26 @@ namespace WpfApp5
             char[] chars = s.ToCharArray();
             chars[x] = _object;
             map[y] = new string(chars);
+
+            bool inPlace = true;
+            for (int i=0; i < cell.Count; i++)
+            {
+                int cellX = cell[i].x;
+                int cellY = cell[i].y;
+
+                if (map[cellY][cellX] != '3')
+                {
+                    inPlace = false;
+                    break;
+                }
+            }
+            //if inPlace == true - NEXT LEVEL
+            if (inPlace)
+            {
+                //перезагрузка уровня
+                cell.Clear();
+                loadMap(@"E:\LearningC#\map2.txt");
+            }
         }
 
         /// <summary>
