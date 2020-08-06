@@ -44,6 +44,10 @@ namespace WpfApp5
         private float groundCorrectionX = step / 25.0f;
         private float groundCorrectionY = step / 3.0f;
 
+        private int stepCount = 0;
+
+        private DateTime startTime = DateTime.Now;
+
         private float getX(int x, int y)
         {
             float globalX = -(y * step / 1.8f);
@@ -61,11 +65,25 @@ namespace WpfApp5
         public MainWindow()
         {
             InitializeComponent();
-            loadMap(@"E:\LearningC#\map1.txt");
+            loadMap(AppDomain.CurrentDomain.BaseDirectory + @"Maps\map1.txt");
+
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+        }
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            timeLabel.Content = "Time: " + (DateTime.Now - startTime).TotalSeconds.ToString();
         }
 
         public void drawMap()
         {
+            stepCount = 0;
+            startTime = DateTime.Now;
+
+
             this.mainGrid.Children.Clear();
             float globalY = step;
             float globalX = step;
@@ -97,9 +115,12 @@ namespace WpfApp5
 
                     if (map[y][x] == '2')
                     {
-                        if (hero == null) hero = new Image();
-                        //hero = new Image();
-                        //hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroright.png", UriKind.Absolute));
+                        if (hero == null)
+                        {
+                            hero = new Image();
+                            hero.Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "Resources\\heroright.png", UriKind.Absolute));
+                        }
+                        
                         heroX = x;
                         heroY = y;
                         hero.Width = step;
@@ -208,6 +229,10 @@ namespace WpfApp5
             chars[x] = _object;
             map[y] = new string(chars);
 
+            stepCount++;
+            stepLabel.Content = "Steps: " + (stepCount / 2).ToString();
+
+
 
             bool inPlace = true;
             for (int i = 0; i < cell.Count; i++)
@@ -226,12 +251,7 @@ namespace WpfApp5
             {
                 //перезагрузка уровня
                 cell.Clear();
-                loadMap(@"E:\LearningC#\map2.txt");
-            }
-            else
-            {
-                cell.Clear();
-                loadMap(@"E:\LearningC#\map1.txt");
+                loadMap(AppDomain.CurrentDomain.BaseDirectory + @"Maps\map2.txt");
             }
 
         }

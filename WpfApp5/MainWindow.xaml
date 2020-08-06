@@ -10,12 +10,24 @@
         <ImageBrush/>
     </Window.Background>
 
-    <Viewbox>
+    
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
 
-        <Grid x:Name="mainGrid" >
-            <Button Content="map2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="5" Click="Button_Click" Height="5" Margin="0,0,0,0"/>
-        </Grid>
 
-    </Viewbox>
+        <Viewbox Grid.RowSpan="3">
+            <Grid x:Name="mainGrid">
+            </Grid>
+        </Viewbox>
+        <StackPanel Orientation="Horizontal">
+        <Label Name="stepLabel" Content="Steps: 0" Foreground="#FFF5F4F4" FontSize="20"></Label>
+        <Label Name="timeLabel" Content="Time: 0" Foreground="#FF6CFD6C" FontSize="20"></Label>
+        </StackPanel>
+    </Grid>
+    
 
 </Window>
