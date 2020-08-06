@@ -107,6 +107,9 @@
     <Content Include="Resources\ground1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\ground2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\heroright.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
